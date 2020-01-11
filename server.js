@@ -5,7 +5,16 @@ const dotenv = require('dotenv');
 // load environment
 dotenv.config({ path: './config.env' });
 
-const app = express(); // creates express server
+// creates express server
+const app = express(); 
+
+// dev logging
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
+// profile routes
+app.use('/api/v1/profile', require('./routes/profile'));
 
 const port = process.env.PORT || 8000
 
